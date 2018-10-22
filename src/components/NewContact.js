@@ -18,9 +18,9 @@ class NewContact extends Component {
 		event.preventDefault();
 		let contactData = serializeForm(event.target, {hash: true})
 		contactData["id"] = Date.now(); // adds a unique id
-		if (this.props.onCreateContact) {
-			this.setState(this.props.onCreateContact([contactData]), () => {this.handleRedirect()})
-		}
+//		if (this.props.onCreateContact) {
+			this.setState(this.props.onCreateContact(contactData), () => {this.handleRedirect()})
+//		}
 
 	}
 
@@ -30,7 +30,6 @@ class NewContact extends Component {
 		})
 	}
 
-
 	render() {
 		return (
 			<div>
@@ -38,6 +37,12 @@ class NewContact extends Component {
 				<form onSubmit={this.handleSubmit}>
 					<input type='text' name='name' placeholder="Name" />
 					<input type='text' name='email' placeholder="Email"/>
+					<input type='text' name='homeNumber' placeholder="Home Number"/>
+					<input type="text" name="mobileNumber" placeholder="Mobile Number"/>
+					<input type="text" name="workNumber" placeholder="Work Number"/>
+					<input type='text' name="address" placeholder="Address"/>
+					<input type="text" name="url" placeholder="Url"/>
+					<input type="textarea" name="notes" placeholder="Notes"/>
 					<button>Add Contact</button>
 				</form>
 

@@ -29,15 +29,20 @@ class App extends Component {
 		}
 
 		this.onCreateContact = this.onCreateContact.bind(this);
+		this.onEditContact = this.onEditContact.bind(this)
 	}
 
 	onCreateContact(data) {
-//		let contactData = serializeForm(event.target, {hash: true})
-//		is there an argument in serializeForm to add a property?
-//		contactData["id"] = Date.now(); // adds a unique id
 		this.setState({
 			contacts: this.state.contacts.concat(data),
 		});
+	}
+
+	onEditContact(data, contactId) {
+		const contacts = this.state.contacts;
+		const contact = contacts.find(contact => {
+			return contact.id === contactId
+		})
 	}
 
 
@@ -57,9 +62,12 @@ class App extends Component {
   					/>
   				}/>
 
-  				<Route path="/:id"  render={(props) => 
-  					<Contact contacts={this.state.contacts} {...props}/> 
+
+  				<Route exact path="/:id"  render={(props) => 
+  					<Contact contacts={this.state.contacts} onEditContact={this.onEditContact} {...props}/> 
   				}/>
+
+
 	  	</div>	
   	)
   }
