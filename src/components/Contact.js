@@ -19,6 +19,7 @@ class Contact extends Component {
 	}
 
 	handleEditSubmit(event, contact) {
+		alert("hanldeEditSubmit contact: " + JSON.stringify(contact));
 		event.preventDefault();
 		let contactData = serializeForm(event.target, {hash: true})
 		if (this.props.onEditContact) {
@@ -50,7 +51,7 @@ class Contact extends Component {
 
 			display = (
 				<div>
-					<form onSubmit={(event) => this.handleEditSubmit(event, contact)}>
+					<form onSubmit={(event) => this.handleEditSubmit(event, contact.id)}>
 						<input type='text' name='name' placeholder="Name" value={contact.name}/>
 						<input type='text' name='email' placeholder="Email" value={contact.email}/>
 						<input type='text' name='homeNumber' placeholder="Home Number" value={contact.homeNumber}/>

@@ -5,6 +5,7 @@ import NewContact from "./NewContact";
 import ContactList from "./ContactList";
 import Contact from "./Contact";
 import serializeForm from "form-serialize";
+import {cloneDeep} from "lodash";
 
 let contacts = [
 	{	
@@ -39,10 +40,10 @@ class App extends Component {
 	}
 
 	onEditContact(data, contactId) {
-		const contacts = this.state.contacts;
-		const contact = contacts.find(contact => {
-			return contact.id === contactId
-		})
+		const contacts = cloneDeep(this.state.contacts);
+		const index = contacts.findIndex(contact => contact.id === contactId);
+		contacts[index] = {...contacts[index], ...data}
+		this.setState({contacts}, () => alert(JSON.stringify(this.state.contacts[index])));
 	}
 
 
