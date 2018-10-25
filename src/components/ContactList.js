@@ -56,9 +56,11 @@ class ContactList extends Component {
 						</NavItem>
 					</NavbarNav>
 				</Navbar>
-				<Navbar>
-					<NavbarNav>
-						<input className="mt-5" value={this.state.search} onChange={(event) => {this.updateSearch(event.target.value)}}/>
+				<Navbar expand="xs">
+					<NavbarNav center>
+						<NavItem>	
+							<input value={this.state.search} onChange={(event) => {this.updateSearch(event.target.value)}}/>
+						</NavItem>
 					</NavbarNav>		
 				</Navbar>
 			
