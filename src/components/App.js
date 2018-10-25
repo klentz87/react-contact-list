@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import '../css/App.css';
 import { Route } from 'react-router-dom';
-import NewContact from "./NewContact";
 import ContactList from "./ContactList";
 import Contact from "./Contact";
-import serializeForm from "form-serialize";
 import {cloneDeep} from "lodash";
 
 let contacts = [
@@ -57,14 +55,12 @@ class App extends Component {
 	  				/>
 	  			)}/>
 
-				<Route exact path="/new" render={() => 
-  					<NewContact
-  						onCreateContact={this.onCreateContact}
-  					/>
+				<Route exact path="/contact" render={(props) => 
+					<Contact contacts={this.state.contacts} onCreateContact={this.onCreateContact} {...props}/>
   				}/>
 
 
-  				<Route exact path="/:id"  render={(props) => 
+  				<Route exact path="/contact/:id"  render={(props) => 
   					<Contact contacts={this.state.contacts} onEditContact={this.onEditContact} {...props}/> 
   				}/>
 

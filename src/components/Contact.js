@@ -1,17 +1,52 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import serializeForm from "form-serialize";
-
+import { Redirect } from "react-router-dom";
 
 class Contact extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			editMode: false
+			editMode: false,
+			redirect: false,
+			formData: {
+				name: "",
+				email: "",
+				homeNumber: "",
+				mobileNumber: "",
+				workNumber: "",
+				address: "",
+				url: "",
+				notes: ""
+			}
 		}
 		this.handleEditMode = this.handleEditMode.bind(this);
-		this.handleEditSubmit = this.handleEditSubmit.bind(this)
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleRedirect = this.handleRedirect.bind(this);
+		this.handleEditSubmit = this.handleEditSubmit.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+	}
+
+	componentDidMount() {
+		const contact = this.props.contacts.find(contact =>
+			{ return contact.id == this.props.match.params.id })
+		
+		contact && this.setState({ formData: contact });
+	}
+
+	handleSubmit(event) {
+		event.preventDefault();
+		let contactData = this.state.formData;
+		contactData["id"] = Date.now(); // adds a unique id
+//		if (this.props.onCreateContact) {
+			this.setState(this.props.onCreateContact(contactData), () => {this.handleRedirect()})
+//		}
+	}
+
+	handleRedirect() {
+		this.setState({
+			redirect: true
+		})
 	}
 
 	handleEditMode() {
@@ -19,54 +54,86 @@ class Contact extends Component {
 	}
 
 	handleEditSubmit(event, contact) {
-		alert("hanldeEditSubmit contact: " + JSON.stringify(contact));
 		event.preventDefault();
-		let contactData = serializeForm(event.target, {hash: true})
-		if (this.props.onEditContact) {
+		let contactData = this.state.formData;
+//		if (this.props.onEditContact) {
 			this.setState(this.props.onEditContact(contactData, contact), () => {this.handleEditMode()})
-		}
+//		}	
+	}
+
+	handleChange(event) {
+		const id = event.target.id;
+		const value = event.target.value;
+
+
+		this.setState(prevState => ({
+			formData: {...prevState.formData,
+				[id]: value
+			}
+		}))
 	}
 
 
 	render() {
 		let display;
-		const contact = this.props.contacts.find(contact =>
-			{ return contact.id == this.props.match.params.id })
 
-		if (contact) {
-			!this.state.editMode ?	
-			
+		if (this.props.match.path == "/contact") {
 			display = (
 				<div>
-					<p>{contact.name}</p>
-					<p>{contact.email}</p>					
-					<p>{contact.homeNumber}</p>
-					<p>{contact.mobileNumber}</p>
-					<p>{contact.workNumber}</p>
-					<p>{contact.address}</p>
-					<p>{contact.url}</p>
-					<p>{contact.notes}</p>
+					<form onSubmit={(event) => this.handleSubmit(event)} >
+						<h1>NEW</h1>
+						<input type='text' id='name' name='name' placeholder="Name" value={this.state.formData.name} onChange={this.handleChange}/>
+						<input type='text' id='email' name='email' placeholder="Email" value={this.state.formData.email} onChange={this.handleChange}/>
+						<input type='text' id='homeNumber' name='homeNumber' placeholder="Home Number" value={this.state.formData.homeNumber} onChange={this.handleChange}/>
+						<input type="text" id="mobileNumber" placeholder="Mobile Number" value={this.state.formData.mobileNumber} onChange={this.handleChange}/>
+						<input type="text" id="workNumber" placeholder="Work Number" value={this.state.formData.workNumber} onChange={this.handleChange}/>
+						<input type='text' id="address" placeholder="Address" value={this.state.formData.address} onChange={this.handleChange}/>
+						<input type="text" id="url" placeholder="Url" value={this.state.formData.url} onChange={this.handleChange}/>
+						<input type="textarea" id="notes" placeholder="Notes" value={this.state.formData.notes} onChange={this.handleChange}/>
+						<button >Add Contact</button>
+					</form>
+
+					{this.state.redirect && (
+						<Redirect to={'/'}/>
+					)}
+				</div>	)
+
+		} else {
+
+			const contactId = this.props.contacts.find(contact =>
+				{ return contact.id == this.props.match.params.id }).id
+
+			!this.state.editMode ?	
+
+			display = (
+				<div>
+					<p>{this.state.formData.name}</p>
+					<p>{this.state.formData.email}</p>					
+					<p>{this.state.formData.homeNumber}</p>
+					<p>{this.state.formData.mobileNumber}</p>
+					<p>{this.state.formData.workNumber}</p>
+					<p>{this.state.formData.address}</p>
+					<p>{this.state.formData.url}</p>
+					<p>{this.state.formData.notes}</p>
 				</div>
 			) :
 
 			display = (
 				<div>
-					<form onSubmit={(event) => this.handleEditSubmit(event, contact.id)}>
-						<input type='text' name='name' placeholder="Name" value={contact.name}/>
-						<input type='text' name='email' placeholder="Email" value={contact.email}/>
-						<input type='text' name='homeNumber' placeholder="Home Number" value={contact.homeNumber}/>
-						<input type="text" name="mobileNumber" placeholder="Mobile Number" value={contact.mobileNumber}/>
-						<input type="text" name="workNumber" placeholder="Work Number" value={contact.workNumber}/>
-						<input type='text' name="address" placeholder="Address" value={contact.address}/>
-						<input type="text" name="url" placeholder="Url" value={contact.url}/>
-						<input type="textarea" name="notes" placeholder="Notes" value={contact.notes}/>
+					<form onSubmit={(event) => this.handleEditSubmit(event, contactId)}>
+						<input type='text' id='name' placeholder="Name" defaultValue={this.state.formData.name} onChange={this.handleChange}/>
+						<input type='text' id='email' placeholder="Email" defaultValue={this.state.formData.email} onChange={this.handleChange}/>
+						<input type='text' id='homeNumber' placeholder="Home Number" defaultValue={this.state.formData.homeNumber} onChange={this.handleChange}/>
+						<input type="text" id="mobileNumber" placeholder="Mobile Number" defaultValue={this.state.formData.mobileNumber} onChange={this.handleChange}/>
+						<input type="text" id="workNumber" placeholder="Work Number" defaultValue={this.state.formData.workNumber} onChange={this.handleChange}/>
+						<input type='text' id="address" placeholder="Address" defaultValue={this.state.formData.address} onChange={this.handleChange}/>
+						<input type="text" id="url" placeholder="URL" defaultValue={this.state.formData.url} onChange={this.handleChange}/>
+						<input type="textarea" id="notes" placeholder="Notes" defaultValue={this.state.formData.notes} onChange={this.handleChange}/>
 						<button>Add Contact</button>
 					</form>
-
-				</div>	)
-			} else {
-				display = <h1>Sorry Buddy</h1>
-			}
+				</div>	
+			)
+		}
 
 		return (
 			<div>

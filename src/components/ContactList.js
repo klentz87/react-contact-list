@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import escapeRegExp from 'escape-string-regexp'
-
+import escapeRegExp from 'escape-string-regexp';
+import { Navbar, NavbarNav, NavItem, Container } from 'mdbreact';
+ 
 class ContactList extends Component {
 	constructor() {
 		super();
@@ -36,13 +37,35 @@ class ContactList extends Component {
 
 		return (
 			<div>
-				<Link to={'/new'}>New Contact</Link>
-				<input value={this.state.search} onChange={(event) => {this.updateSearch(event.target.value)}}/>
-
-				<ul>
+				<Navbar color="red" fixed="top" expand="xs">
+					<NavbarNav left>
+						<NavItem>
+							<a href='http://www.krislentz.net'>Home</a>
+						</NavItem>
+					</NavbarNav>
+					
+					<NavbarNav center>
+						<NavItem>
+							<h3>Contact</h3>
+						</NavItem>
+					</NavbarNav>
+					
+					<NavbarNav right>
+						<NavItem>
+							<Link to={'/contact'}>New</Link>
+						</NavItem>
+					</NavbarNav>
+				</Navbar>
+				<Navbar>
+					<NavbarNav>
+						<input className="mt-5" value={this.state.search} onChange={(event) => {this.updateSearch(event.target.value)}}/>
+					</NavbarNav>		
+				</Navbar>
+			
+				<ul className="mt-5">
 					{searchedContacts.map((contact) => (
 						<li key={contact.id} id={contact.id}>
-							<Link to={`/${contact.id}`}>
+							<Link to={`/contact/${contact.id}`}>
 								<p>{contact.name}</p>
 							</Link>
 						</li>
