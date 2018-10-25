@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
+import { Container, Row, Col, Input, Button, Fa, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
+
 
 class Contact extends Component {
 	constructor(props) {
@@ -38,9 +40,9 @@ class Contact extends Component {
 		event.preventDefault();
 		let contactData = this.state.formData;
 		contactData["id"] = Date.now(); // adds a unique id
-//		if (this.props.onCreateContact) {
+		if (this.props.onCreateContact) {
 			this.setState(this.props.onCreateContact(contactData), () => {this.handleRedirect()})
-//		}
+		}
 	}
 
 	handleRedirect() {
@@ -65,7 +67,6 @@ class Contact extends Component {
 		const id = event.target.id;
 		const value = event.target.value;
 
-
 		this.setState(prevState => ({
 			formData: {...prevState.formData,
 				[id]: value
@@ -79,9 +80,9 @@ class Contact extends Component {
 
 		if (this.props.match.path == "/contact") {
 			display = (
-				<div>
+				<div className="mt-5">
+					<h1>New</h1>
 					<form onSubmit={(event) => this.handleSubmit(event)} >
-						<h1>NEW</h1>
 						<input type='text' id='name' name='name' placeholder="Name" value={this.state.formData.name} onChange={this.handleChange}/>
 						<input type='text' id='email' name='email' placeholder="Email" value={this.state.formData.email} onChange={this.handleChange}/>
 						<input type='text' id='homeNumber' name='homeNumber' placeholder="Home Number" value={this.state.formData.homeNumber} onChange={this.handleChange}/>

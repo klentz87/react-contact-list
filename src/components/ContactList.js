@@ -2,16 +2,15 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import escapeRegExp from 'escape-string-regexp';
 import { Navbar, NavbarNav, NavItem, Container } from 'mdbreact';
+import '../css/ContactList.css';
  
 class ContactList extends Component {
 	constructor() {
 		super();
-		
+
 		this.state = {
 			search: ''
 		}
-
-		this.updateSearch = this.updateSearch.bind(this);
 	}
 
 	updateSearch(search) {
@@ -37,26 +36,7 @@ class ContactList extends Component {
 
 		return (
 			<div>
-				<Navbar color="red" fixed="top" expand="xs">
-					<NavbarNav left>
-						<NavItem>
-							<a href='http://www.krislentz.net'>Home</a>
-						</NavItem>
-					</NavbarNav>
-					
-					<NavbarNav center>
-						<NavItem>
-							<h3>Contact</h3>
-						</NavItem>
-					</NavbarNav>
-					
-					<NavbarNav right>
-						<NavItem>
-							<Link to={'/contact'}>New</Link>
-						</NavItem>
-					</NavbarNav>
-				</Navbar>
-				<Navbar expand="xs">
+				<Navbar className='search-bar' expand="xs">
 					<NavbarNav center>
 						<NavItem>	
 							<input value={this.state.search} onChange={(event) => {this.updateSearch(event.target.value)}}/>
