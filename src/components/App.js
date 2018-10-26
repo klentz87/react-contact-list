@@ -11,7 +11,7 @@ let contacts = [
 	{	
 		id: 1540538341501,
 		name: "Montana Sharma",
-		email: "msharma@gmail.com"
+		email: "msharma@gmail.com",
 	},
 	{
 		id: 1540538356203,

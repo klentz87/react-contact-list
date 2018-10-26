@@ -144,6 +144,9 @@ class Contact extends Component {
 									{notesArea}
 								</ul>	
 							</div>
+							<div>
+								
+							</div>
 						</Col>
 					</Row>
 				</Container>		
@@ -166,7 +169,7 @@ class Contact extends Component {
 								<Input type="textarea" label="Notes" icon="pencil" id="notes" value={this.state.formData.notes} onChange={this.handleChange}/>
 							</div>
 							<div className="text-center">	
-								<Button type="submit">Add Contact</Button>
+								<Button color="primary" type="submit">Add Contact</Button>
 							</div>
 						</form>
 					</Col>
