@@ -36,20 +36,16 @@ class App extends Component {
 	}
 
 	onCreateContact(data) {
-		alert("data" + JSON.stringify(data))
 		this.setState({
 			contacts: this.state.contacts.concat(data),
 		});
-
-		alert(JSON.stringify(this.state.contacts))
-
 	}
 
 	onEditContact(data, contactId) {
 		const contacts = cloneDeep(this.state.contacts);
 		const index = contacts.findIndex(contact => contact.id === contactId);
 		contacts[index] = {...contacts[index], ...data}
-		this.setState({contacts}, () => alert(("edit" + JSON.stringfiy(this.state.contacts[index]))));
+		this.setState({contacts});
 	}
 
 	updateSearch(search) {
@@ -60,7 +56,6 @@ class App extends Component {
 
   		return(
 	  		<div>
-	  			<NavigationBar />
 	  			<Route exact path='/' render={() => (
 	  				<ContactList 
 	  					contacts={this.state.contacts}

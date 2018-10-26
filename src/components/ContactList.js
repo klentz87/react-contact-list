@@ -37,7 +37,7 @@ class ContactList extends Component {
 		return (
 			<div>
 				<Navbar className='search-bar' expand="xs">
-					<NavbarNav center>
+					<NavbarNav>
 						<NavItem>	
 							<input value={this.state.search} onChange={(event) => {this.updateSearch(event.target.value)}}/>
 						</NavItem>

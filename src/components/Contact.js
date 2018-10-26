@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { Redirect } from "react-router-dom";
-import { Container, Row, Col, Input, Button, Fa, Modal, ModalBody, ModalHeader, ModalFooter } from 'mdbreact';
+import NavigationBar from "./NavigationBar"
+import { Link, Redirect } from "react-router-dom";
+import { Container, Row, Col, Input, Button } from 'mdbreact';
+import _ from "lodash"
 
 
 class Contact extends Component {
@@ -58,9 +59,9 @@ class Contact extends Component {
 	handleEditSubmit(event, contact) {
 		event.preventDefault();
 		let contactData = this.state.formData;
-//		if (this.props.onEditContact) {
+		if (this.props.onEditContact) {
 			this.setState(this.props.onEditContact(contactData, contact), () => {this.handleEditMode()})
-//		}	
+		}	
 	}
 
 	handleChange(event) {
@@ -76,28 +77,48 @@ class Contact extends Component {
 
 
 	render() {
-		let display;
+		let display, nameArea, emailArea, homeNumberArea, workNumberArea, mobileNumberArea, addressArea, urlArea, notesArea;
+
+		this.state.formData.name ? nameArea = <p><i className="grey-text fa fa-user" aria-hidden="true"></i>  {this.state.formData.name}</p>: nameArea = '';			
+		this.state.formData.email ? emailArea = <p><i className="grey-text fa fa-envelope" aria-hidden="true"></i>  {this.state.formData.email}</p> : emailArea = '';		
+		this.state.formData.homeNumber ? homeNumberArea = <p><i className="grey-text fa fa-phone" aria-hidden="true"></i>   {this.state.formData.homeNumber}</p>: homeNumberArea = '';
+		this.state.formData.mobileNumber ? mobileNumberArea = <p><i className="grey-text fa fa-mobile-phone" aria-hidden="true"></i>   {this.state.formData.mobileNumber}</p>: mobileNumberArea = '';
+ 		this.state.formData.workNumber ? workNumberArea = <p><i className="grey-text fa fa-phone" aria-hidden="true"></i>   {this.state.formData.workNumber}</p>: workNumberArea = '';
+		this.state.formData.address ? addressArea = <p><i className="grey-text fa fa-map-marker" aria-hidden="true"></i>   {this.state.formData.address}</p>: addressArea = '';
+		this.state.formData.url ? urlArea = <p><i className="grey-text fa fa-laptop" aria-hidden="true"></i>   {this.state.formData.url}</p> : urlArea = '';
+		this.state.formData.notes ? notesArea = <p><i className="grey-text fa fa-pencil" aria-hidden="true"></i>   {this.state.formData.notes}</p> : notesArea = '';
+
+
 
 		if (this.props.match.path == "/contact") {
 			display = (
-				<div className="mt-5">
-					<h1>New</h1>
-					<form onSubmit={(event) => this.handleSubmit(event)} >
-						<input type='text' id='name' name='name' placeholder="Name" value={this.state.formData.name} onChange={this.handleChange}/>
-						<input type='text' id='email' name='email' placeholder="Email" value={this.state.formData.email} onChange={this.handleChange}/>
-						<input type='text' id='homeNumber' name='homeNumber' placeholder="Home Number" value={this.state.formData.homeNumber} onChange={this.handleChange}/>
-						<input type="text" id="mobileNumber" placeholder="Mobile Number" value={this.state.formData.mobileNumber} onChange={this.handleChange}/>
-						<input type="text" id="workNumber" placeholder="Work Number" value={this.state.formData.workNumber} onChange={this.handleChange}/>
-						<input type='text' id="address" placeholder="Address" value={this.state.formData.address} onChange={this.handleChange}/>
-						<input type="text" id="url" placeholder="Url" value={this.state.formData.url} onChange={this.handleChange}/>
-						<input type="textarea" id="notes" placeholder="Notes" value={this.state.formData.notes} onChange={this.handleChange}/>
-						<button >Add Contact</button>
-					</form>
+			<Container className="mt-5">	
+				<Row>
+					<Col md="6" xs="10">
+						<form onSubmit={(event) => this.handleSubmit(event)} >
+							<div className="grey-text mt-5 p-3">
+								<h2>Add Contact</h2>
+								<Input type='text' label="Name" icon="user" id='name' value={this.state.formData.name} onChange={this.handleChange}/>
+								<Input type='text' label="Email" icon="envelope" id='email' value={this.state.formData.email} onChange={this.handleChange}/>
+								<Input type='text' label="Home Number" icon="phone" id='homeNumber' name='homeNumber' placeholder="Home Number" value={this.state.formData.homeNumber} onChange={this.handleChange}/>
+								<Input type="text" label="Mobile Number" icon="mobile-phone" id="mobileNumber" value={this.state.formData.mobileNumber} onChange={this.handleChange}/>
+								<Input type="text" label="Work Number" icon="phone" id="workNumber" value={this.state.formData.workNumber} onChange={this.handleChange}/>
+								<Input type='text' label="Address" icon="map-marker" id="address" value={this.state.formData.address} onChange={this.handleChange}/>
+								<Input type="text" label="URL" icon="laptop" id="url" value={this.state.formData.url} onChange={this.handleChange}/>
+								<Input type="textarea" label="Notes" icon="pencil" id="notes" value={this.state.formData.notes} onChange={this.handleChange}/>
+							</div>
+							<div className="text-center">
+								<Button color="primary" type="submit">Add Contact</Button>
+							</div>
+						</form>
 
-					{this.state.redirect && (
-						<Redirect to={'/'}/>
-					)}
-				</div>	)
+						{this.state.redirect && (
+							<Redirect to={'/'}/>
+						)}
+					</Col>
+				</Row>
+			</Container>
+			)
 
 		} else {
 
@@ -106,41 +127,70 @@ class Contact extends Component {
 
 			!this.state.editMode ?	
 
+			
 			display = (
-				<div>
-					<p>{this.state.formData.name}</p>
-					<p>{this.state.formData.email}</p>					
-					<p>{this.state.formData.homeNumber}</p>
-					<p>{this.state.formData.mobileNumber}</p>
-					<p>{this.state.formData.workNumber}</p>
-					<p>{this.state.formData.address}</p>
-					<p>{this.state.formData.url}</p>
-					<p>{this.state.formData.notes}</p>
-				</div>
+				<Container className="mt-5">	
+					<Row>
+						<Col md="6" xs="10">
+							<div className="mt-5 p-3">
+								{nameArea}
+								{emailArea}					
+								{homeNumberArea}
+								{mobileNumberArea}
+								{workNumberArea}
+								{addressArea}
+								{urlArea}
+								{notesArea}
+							</div>
+						</Col>
+					</Row>
+				</Container>		
 			) :
 
 			display = (
-				<div>
-					<form onSubmit={(event) => this.handleEditSubmit(event, contactId)}>
-						<input type='text' id='name' placeholder="Name" defaultValue={this.state.formData.name} onChange={this.handleChange}/>
-						<input type='text' id='email' placeholder="Email" defaultValue={this.state.formData.email} onChange={this.handleChange}/>
-						<input type='text' id='homeNumber' placeholder="Home Number" defaultValue={this.state.formData.homeNumber} onChange={this.handleChange}/>
-						<input type="text" id="mobileNumber" placeholder="Mobile Number" defaultValue={this.state.formData.mobileNumber} onChange={this.handleChange}/>
-						<input type="text" id="workNumber" placeholder="Work Number" defaultValue={this.state.formData.workNumber} onChange={this.handleChange}/>
-						<input type='text' id="address" placeholder="Address" defaultValue={this.state.formData.address} onChange={this.handleChange}/>
-						<input type="text" id="url" placeholder="URL" defaultValue={this.state.formData.url} onChange={this.handleChange}/>
-						<input type="textarea" id="notes" placeholder="Notes" defaultValue={this.state.formData.notes} onChange={this.handleChange}/>
-						<button>Add Contact</button>
-					</form>
-				</div>	
+			<Container className="mt-5">	
+				<Row>
+					<Col md="6" xs="10">
+						<form onSubmit={(event) => this.handleEditSubmit(event, contactId)}>
+							<div className="grey-text mt-5 p-3">
+								<h2>Edit Contact</h2>
+								<Input type='text' label="Name" icon="user" id='name' value={this.state.formData.name} onChange={this.handleChange}/>
+								<Input type='text' label="Email" icon="envelope" id='email' value={this.state.formData.email} onChange={this.handleChange}/>
+								<Input type='text' label="Home Number" icon="phone" id='homeNumber' value={this.state.formData.homeNumber} onChange={this.handleChange}/>
+								<Input type="text" label="Mobile Number" icon="mobile-phone" id="mobileNumber" value={this.state.formData.mobileNumber} onChange={this.handleChange}/>
+								<Input type="text" label="Work Number" icon="phone-square" id="workNumber" value={this.state.formData.workNumber} onChange={this.handleChange}/>
+								<Input type='text' label="Address" icon="address-card"id="address" value={this.state.formData.address} onChange={this.handleChange}/>
+								<Input type="text" label="URL" icon="laptop" id="url" value={this.state.formData.url} onChange={this.handleChange}/>
+								<Input type="textarea" label="Notes" icon="pencil" id="notes" value={this.state.formData.notes} onChange={this.handleChange}/>
+							</div>
+							<div className="text-center">	
+								<Button type="submit">Add Contact</Button>
+							</div>
+						</form>
+					</Col>
+				</Row>
+			</Container>	
+
+				
 			)
 		}
 
 		return (
 			<div>
-				<button onClick={this.handleEditMode}>Edit</button>
-				<Link to="/">Go Back</Link>
+				<NavigationBar match={this.props.match} 
+							   editMode={this.state.editMode}
+							   onHandleEditMode={this.handleEditMode}
+							   onHandleSubmit={(event) => this.handleSubmit(event)}
+							   onHandleEdit={(event, contact) => this.handleEditSubmit(event, contact)}
+							   formEvent={this.event}
+							   contactInfo={ this.props.contacts.find(contact =>
+									{ return contact.id == this.props.match.params.id }).id}
+				/>
+				
 				{display}
+					<button onClick={this.handleEditMode}>Edit</button>
+						<Link to="/">Go Back</Link>
+
 			</div>
 		)
 	}
