@@ -28,21 +28,30 @@ class NavigationBar extends Component {
 
 		let rightButton, leftButton;
 
-		if (_.isEmpty(this.props.match.params)) {
-			rightButton = <a onClick={this.handleSubmit}>Add</a>
+		if (this.props.match.path == '/') {
+			rightButton = <Link to="/contact">Add</Link>
 		} else {
-			if (this.props.editMode) {
-				rightButton = <a onClick={this.handleEdit}>Add</a>
+			if (_.isEmpty(this.props.match.params)) {
+				rightButton = <a className="text-primary" onClick={this.handleSubmit}>Add</a>
 			} else {
-				rightButton = <a onClick={this.handleEditMode}>Edit</a>
-			}
+				if (this.props.editMode) {
+					rightButton = <a className="text-primary" onClick={this.handleEdit}>Add</a>
+				} else {
+					rightButton = <a className="text-primary" onClick={this.handleEditMode}>Edit</a>
+				}
+			}	
+
+			leftButton = <Link to="/">Back</Link>
 		}	
+
+		leftButton = <Link to="/">Back</Link>
+
 
 		return(
 			<Navbar color="red" fixed="top" expand="xs">
 				<NavbarNav left>
 					<NavItem>
-						<a href='http://www.krislentz.net'>Home</a>
+						{leftButton}
 					</NavItem>
 				</NavbarNav>
 					

@@ -9,14 +9,49 @@ import {cloneDeep} from "lodash";
 
 let contacts = [
 	{	
-		id: 122345,
-		name: "kris",
-		email: "kris@gmail.com"
+		id: 1540538341501,
+		name: "Montana Sharma",
+		email: "msharma@gmail.com"
 	},
 	{
-		id: 223465,
-		name: "chris",
-		email: "chris@gmail.com"
+		id: 1540538356203,
+		name: "Osian Jeffery",
+		email: "osian.jeffery@yahoo.com"
+	},
+	{	
+		id: 1540538369787,
+		name: "Christiana Carey",
+		email: "ccarey@hotmail.com"
+	},
+	{	
+		id: 1540538383019,
+		name: "Jorden Shea",
+		email: "jordan.h.shea@yahoo.com"
+	},
+	{	
+		id: 1540538395338,
+		name: "Makayla Thomson",
+		email: "mkthomson@gmail.com"
+	},
+	{	
+		id: 1540538404290,
+		name: "Aleksander Corrigan",
+		email: "acorrigan@yahoo.com"
+	},
+	{	
+		id: 1540538414417,
+		name: "Ella-May Corbett",
+		email: "emc@gmail.com"
+	},
+	{	
+		id: 1540538435297,
+		name: "Shelley Wheatley",
+		email: "wheatley.shelley@yahoo.com"
+	},
+	{	
+		id: 1540538445703,
+		name: "Mindy Zamora",
+		email: "m.zamora@gmail.com"
 	}
 ]
 
@@ -56,9 +91,8 @@ class App extends Component {
 
   		return(
 	  		<div>
-	  			<Route exact path='/' render={() => (
-	  				<ContactList 
-	  					contacts={this.state.contacts}
+	  			<Route exact path='/' render={(props) => (
+	  				<ContactList contacts={this.state.contacts} {...props}
 	  				/>
 	  			)}/>
 

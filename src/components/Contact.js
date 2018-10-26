@@ -79,14 +79,14 @@ class Contact extends Component {
 	render() {
 		let display, nameArea, emailArea, homeNumberArea, workNumberArea, mobileNumberArea, addressArea, urlArea, notesArea;
 
-		this.state.formData.name ? nameArea = <p><i className="grey-text fa fa-user" aria-hidden="true"></i>  {this.state.formData.name}</p>: nameArea = '';			
-		this.state.formData.email ? emailArea = <p><i className="grey-text fa fa-envelope" aria-hidden="true"></i>  {this.state.formData.email}</p> : emailArea = '';		
-		this.state.formData.homeNumber ? homeNumberArea = <p><i className="grey-text fa fa-phone" aria-hidden="true"></i>   {this.state.formData.homeNumber}</p>: homeNumberArea = '';
-		this.state.formData.mobileNumber ? mobileNumberArea = <p><i className="grey-text fa fa-mobile-phone" aria-hidden="true"></i>   {this.state.formData.mobileNumber}</p>: mobileNumberArea = '';
- 		this.state.formData.workNumber ? workNumberArea = <p><i className="grey-text fa fa-phone" aria-hidden="true"></i>   {this.state.formData.workNumber}</p>: workNumberArea = '';
-		this.state.formData.address ? addressArea = <p><i className="grey-text fa fa-map-marker" aria-hidden="true"></i>   {this.state.formData.address}</p>: addressArea = '';
-		this.state.formData.url ? urlArea = <p><i className="grey-text fa fa-laptop" aria-hidden="true"></i>   {this.state.formData.url}</p> : urlArea = '';
-		this.state.formData.notes ? notesArea = <p><i className="grey-text fa fa-pencil" aria-hidden="true"></i>   {this.state.formData.notes}</p> : notesArea = '';
+		this.state.formData.name ? nameArea = <li><i className="grey-text fa fa-user" aria-hidden="true"></i>  {this.state.formData.name}</li>: nameArea = '';			
+		this.state.formData.email ? emailArea = <li><i className="grey-text fa fa-envelope" aria-hidden="true"></i>  {this.state.formData.email}</li> : emailArea = '';		
+		this.state.formData.homeNumber ? homeNumberArea = <li><i className="grey-text fa fa-phone" aria-hidden="true"></i>   {this.state.formData.homeNumber}</li>: homeNumberArea = '';
+		this.state.formData.mobileNumber ? mobileNumberArea = <li><i className="grey-text fa fa-mobile-phone" aria-hidden="true"></i>   {this.state.formData.mobileNumber}</li>: mobileNumberArea = '';
+ 		this.state.formData.workNumber ? workNumberArea = <li><i className="grey-text fa fa-phone" aria-hidden="true"></i>   {this.state.formData.workNumber}</li>: workNumberArea = '';
+		this.state.formData.address ? addressArea = <li><i className="grey-text fa fa-map-marker" aria-hidden="true"></i>   {this.state.formData.address}</li>: addressArea = '';
+		this.state.formData.url ? urlArea = <li><i className="grey-text fa fa-laptop" aria-hidden="true"></i>   {this.state.formData.url}</li> : urlArea = '';
+		this.state.formData.notes ? notesArea = <li><i className="grey-text fa fa-pencil" aria-hidden="true"></i>   {this.state.formData.notes}</li> : notesArea = '';
 
 
 
@@ -133,14 +133,16 @@ class Contact extends Component {
 					<Row>
 						<Col md="6" xs="10">
 							<div className="mt-5 p-3">
-								{nameArea}
-								{emailArea}					
-								{homeNumberArea}
-								{mobileNumberArea}
-								{workNumberArea}
-								{addressArea}
-								{urlArea}
-								{notesArea}
+								<ul className="list-unstyled">
+									{nameArea}
+									{emailArea}					
+									{homeNumberArea}
+									{mobileNumberArea}
+									{workNumberArea}
+									{addressArea}
+									{urlArea}
+									{notesArea}
+								</ul>	
 							</div>
 						</Col>
 					</Row>
@@ -183,14 +185,15 @@ class Contact extends Component {
 							   onHandleSubmit={(event) => this.handleSubmit(event)}
 							   onHandleEdit={(event, contact) => this.handleEditSubmit(event, contact)}
 							   formEvent={this.event}
-							   contactInfo={ this.props.contacts.find(contact =>
-									{ return contact.id == this.props.match.params.id }).id}
+							   contactInfo={ (this.props.match.params.id) ?
+							   					this.props.contacts.find(contact =>
+												{ return contact.id == this.props.match.params.id }).id
+											  : null		
+											}
+
 				/>
 				
 				{display}
-					<button onClick={this.handleEditMode}>Edit</button>
-						<Link to="/">Go Back</Link>
-
 			</div>
 		)
 	}

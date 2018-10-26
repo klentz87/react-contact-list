@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import NavigationBar from "./NavigationBar";
 import { Link } from "react-router-dom";
 import escapeRegExp from 'escape-string-regexp';
 import { Navbar, NavbarNav, NavItem, Container } from 'mdbreact';
@@ -36,6 +37,7 @@ class ContactList extends Component {
 
 		return (
 			<div>
+				<NavigationBar match={this.props.match}/>
 				<Navbar className='search-bar' expand="xs">
 					<NavbarNav>
 						<NavItem>	
@@ -44,11 +46,12 @@ class ContactList extends Component {
 					</NavbarNav>		
 				</Navbar>
 			
-				<ul className="mt-5">
+				<ul className="mt-5 ml-4 list-unstyled">
 					{searchedContacts.map((contact) => (
 						<li key={contact.id} id={contact.id}>
 							<Link to={`/contact/${contact.id}`}>
-								<p>{contact.name}</p>
+								<h4>{contact.name}</h4>
+								<hr/>
 							</Link>
 						</li>
 
