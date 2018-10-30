@@ -32,18 +32,18 @@ class NavigationBar extends Component {
 		if (this.props.match.path === '/') {
 			rightButton = <Link to="/contact"><h4>Add</h4></Link>
 			leftButton = <a href="http://www.krislentz.net" className="text-primary"><h4>Home</h4></a>
-			center = <h3>Contact</h3>
+			center = <h3 className="text-center">Contact</h3>
 		} else {
 			if (_.isEmpty(this.props.match.params)) {
 				rightButton = <button type="button" className="text-primary button-link" onClick={this.handleSubmit}><h4>Add</h4></button>
-				center = <h3>Add Contact</h3>
+				center = <h3 className="text-center">Add Contact</h3>
 			} else {
 				if (this.props.editMode) {
 					rightButton = <button type="button "className="text-primary button-link" onClick={this.handleEdit}><h4>Add</h4></button>
 				} else {
 					rightButton = <button type="button" className="text-primary button-link" onClick={this.handleEditMode}><h4>Edit</h4></button>
 				}
-				center = <h3>{this.props.contactInfo.name}</h3>
+				center = <h3 className="text-center">{this.props.contactInfo.name}</h3>
 
 			}	
 			leftButton = <Link to="/"><h4>Back</h4></Link>

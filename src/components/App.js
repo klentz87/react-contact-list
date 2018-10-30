@@ -49,7 +49,7 @@ let contacts = [
 	},
 	{	
 		id: 1540538404290,
-		name: "Aleksander Corrigan",
+		name: "Alex Corrigan",
 		email: "acorrigan@yahoo.com",
 		homeNumber: "(812) 454-9678",
 		mobileNumber: "(210) 274-0097",

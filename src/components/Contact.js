@@ -110,7 +110,7 @@ class Contact extends Component {
 								<Input type="text" label="URL" icon="laptop" id="url" value={this.state.formData.url} onChange={this.handleChange}/>
 								<Input type="textarea" label="Notes" icon="pencil" id="notes" value={this.state.formData.notes} onChange={this.handleChange}/>
 							</div>
-							<div className="text-center">
+							<div>
 								<Button color="primary" type="submit">Add Contact</Button>
 							</div>
 						</form>
@@ -147,7 +147,8 @@ class Contact extends Component {
 									{notesArea}
 								</ul>	
 							</div>
-							<div className="text-center">
+							<div>
+								<Button color="warning" className="d-none d-sm-inline" onClick={this.handleEditMode}>Edit</Button>
 								<Button color="danger" onClick={(contact) => this.handleDelete(this.state.formData.id)}>Delete</Button>
 							</div>
 
@@ -175,7 +176,7 @@ class Contact extends Component {
 								<Input type="text" label="URL" icon="laptop" id="url" value={this.state.formData.url} onChange={this.handleChange}/>
 								<Input type="textarea" label="Notes" icon="pencil" id="notes" value={this.state.formData.notes} onChange={this.handleChange}/>
 							</div>
-							<div className="text-center">	
+							<div>	
 								<Button color="primary" type="submit">Add Contact</Button>
 							</div>
 						</form>
