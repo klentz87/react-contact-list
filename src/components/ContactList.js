@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NavigationBar from "./NavigationBar";
 import { Link } from "react-router-dom";
 import escapeRegExp from 'escape-string-regexp';
-import { Navbar, NavbarNav, NavItem, Container } from 'mdbreact';
+import { Navbar, NavbarNav, NavItem } from 'mdbreact';
 import '../css/ContactList.css';
  
 class ContactList extends Component {

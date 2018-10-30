@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Navbar, NavbarNav, NavItem } from 'mdbreact';
 import { Link } from "react-router-dom";
-import _ from "lodash"
+import _ from "lodash";
+import "../css/NavigationBar.css"
 
 class NavigationBar extends Component {
 	constructor() {
@@ -26,22 +27,27 @@ class NavigationBar extends Component {
 
 	render() {
 
-		let rightButton, leftButton;
+		let rightButton, leftButton, center;
 
-		if (this.props.match.path == '/') {
+		if (this.props.match.path === '/') {
 			rightButton = <Link to="/contact"><h4>Add</h4></Link>
 			leftButton = <a href="http://www.krislentz.net" className="text-primary"><h4>Home</h4></a>
+			center = <h3>Contact</h3>
 		} else {
 			if (_.isEmpty(this.props.match.params)) {
-				rightButton = <a className="text-primary" onClick={this.handleSubmit}><h4>Add</h4></a>
+				rightButton = <button type="button" className="text-primary button-link" onClick={this.handleSubmit}><h4>Add</h4></button>
+				center = <h3>Add Contact</h3>
 			} else {
 				if (this.props.editMode) {
-					rightButton = <a className="text-primary" onClick={this.handleEdit}><h4>Add</h4></a>
+					rightButton = <button type="button "className="text-primary button-link" onClick={this.handleEdit}><h4>Add</h4></button>
 				} else {
-					rightButton = <a className="text-primary" onClick={this.handleEditMode}><h4>Edit</h4></a>
+					rightButton = <button type="button" className="text-primary button-link" onClick={this.handleEditMode}><h4>Edit</h4></button>
 				}
-				leftButton = <Link to="/"><h4>Back</h4></Link>
+				center = <h3>{this.props.contactInfo.name}</h3>
+
 			}	
+			leftButton = <Link to="/"><h4>Back</h4></Link>
+
 		}	
 
 		return(
@@ -54,7 +60,7 @@ class NavigationBar extends Component {
 					
 				<NavbarNav>
 					<NavItem>
-						<h3>Contact</h3>
+						{center}
 					</NavItem>
 				</NavbarNav>
 					

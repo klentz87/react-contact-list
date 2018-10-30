@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import NavigationBar from "./NavigationBar"
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { Container, Row, Col, Input, Button } from 'mdbreact';
-import _ from "lodash"
-
 
 class Contact extends Component {
 	constructor(props) {
@@ -33,14 +31,14 @@ class Contact extends Component {
 	componentDidMount() {
 		const contact = this.props.contacts.find(contact =>
 			{ return contact.id == this.props.match.params.id })
-		
+
 		contact && this.setState({ formData: contact });
 	}
 
 	handleSubmit(event) {
 		event.preventDefault();
 		let contactData = this.state.formData;
-		contactData["id"] = Date.now(); // adds a unique id
+		contactData["id"] = Date.now().toString(); // adds a unique id
 		if (this.props.onCreateContact) {
 			this.setState(this.props.onCreateContact(contactData), () => {this.handleRedirect()})
 		}
@@ -73,6 +71,11 @@ class Contact extends Component {
 				[id]: value
 			}
 		}))
+	}
+
+	handleDelete(contact) {
+		alert(contact);
+		this.setState({redirect: true}, () => this.props.onDeleteContact(contact));
 	}
 
 
@@ -144,9 +147,13 @@ class Contact extends Component {
 									{notesArea}
 								</ul>	
 							</div>
-							<div>
-								
+							<div className="text-center">
+								<Button color="danger" onClick={(contact) => this.handleDelete(this.state.formData.id)}>Delete</Button>
 							</div>
+
+							{this.state.redirect && (
+								<Redirect to={'/'}/>
+							)}
 						</Col>
 					</Row>
 				</Container>		
@@ -190,7 +197,7 @@ class Contact extends Component {
 							   formEvent={this.event}
 							   contactInfo={ (this.props.match.params.id) ?
 							   					this.props.contacts.find(contact =>
-												{ return contact.id == this.props.match.params.id }).id
+												{ return contact.id == this.props.match.params.id })
 											  : null		
 											}
 
