@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import escapeRegExp from 'escape-string-regexp';
 import { Navbar, NavbarNav, NavItem } from 'mdbreact';
 import '../css/ContactList.css';
+import PropTypes from "prop-types";
  
 class ContactList extends Component {
 	constructor() {
@@ -60,6 +61,10 @@ class ContactList extends Component {
 			</div>
 		)
 	}
+}
+
+ContactList.propTypes = {
+	contacts: PropTypes.array
 }
 
 export default ContactList;

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Navbar, NavbarNav, NavItem } from 'mdbreact';
 import { Link } from "react-router-dom";
 import _ from "lodash";
-import "../css/NavigationBar.css"
+import "../css/NavigationBar.css";
+import PropTypes from "prop-types";
 
 class NavigationBar extends Component {
 	constructor() {
@@ -72,6 +73,16 @@ class NavigationBar extends Component {
 			</Navbar>
 		)
 	}	
+}
+
+NavigationBar.propTypes = {
+	match: PropTypes.object,
+	editMode: PropTypes.bool,
+	onHandleEditMode: PropTypes.func,
+	onHandleSubmit: PropTypes.func,
+	onHandleEdit: PropTypes.func,
+	formEvent: PropTypes.object,
+	contactInfo: PropTypes.object
 }
 
 export default NavigationBar;

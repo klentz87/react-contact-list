@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import NavigationBar from "./NavigationBar"
 import { Redirect } from "react-router-dom";
 import { Container, Row, Col, Input, Button } from 'mdbreact';
+import PropTypes from "prop-types";
 
 class Contact extends Component {
 	constructor(props) {
@@ -208,6 +209,13 @@ class Contact extends Component {
 			</div>
 		)
 	}
+}
+
+Contact.propTypes = {
+	contacts: PropTypes.array,
+	onCreateContact: PropTypes.func,
+	onEditContact: PropTypes.func,
+	onDeleteContact: PropTypes.func
 }
 
 export default Contact
