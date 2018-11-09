@@ -34,6 +34,7 @@ class Contact extends Component {
 			{ return contact.id == this.props.match.params.id })
 
 		contact && this.setState({ formData: contact });
+
 	}
 
 	handleSubmit(event) {
@@ -75,7 +76,6 @@ class Contact extends Component {
 	}
 
 	handleDelete(contact) {
-		alert(contact);
 		this.setState({redirect: true}, () => this.props.onDeleteContact(contact));
 	}
 
@@ -129,6 +129,7 @@ class Contact extends Component {
 			const contactId = this.props.contacts.find(contact =>
 				{ return contact.id == this.props.match.params.id }).id
 
+				
 			!this.state.editMode ?	
 
 			
